@@ -2,12 +2,19 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://v-diti.vercel.app"),
   title: "Aditi, Will You Be My Valentine? 💕",
   description: "I have a very important question for you...",
   openGraph: {
     title: "Aditi, Will You Be My Valentine? 💕",
-    description: "Someone special has a question for you!",
+    description: "Someone special has a question for you! 🐻💝",
     type: "website",
+    siteName: "Valentine",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Aditi, Will You Be My Valentine? 💕",
+    description: "Someone special has a question for you! 🐻💝",
   },
 };
 
@@ -15,6 +22,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
+  themeColor: "#ff69b4",
 };
 
 export default function RootLayout({

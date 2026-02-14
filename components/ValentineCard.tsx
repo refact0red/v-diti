@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import type { ValentineState, ImageState } from "@/lib/constants";
 import CuteCharacter from "./CuteCharacter";
@@ -11,12 +11,19 @@ import Celebration from "./Celebration";
 export default function ValentineCard() {
   const [state, setState] = useState<ValentineState>("asking");
   const [noCount, setNoCount] = useState(0);
+  const yesCooldown = useRef(false);
 
   const handleNoHover = useCallback(() => {
     setNoCount((prev) => prev + 1);
+    // Prevent the same touch from triggering Yes after No escapes
+    yesCooldown.current = true;
+    setTimeout(() => {
+      yesCooldown.current = false;
+    }, 500);
   }, []);
 
   const handleYes = useCallback(() => {
+    if (yesCooldown.current) return;
     setState("celebrating");
   }, []);
 
@@ -49,7 +56,7 @@ export default function ValentineCard() {
               Aditi, will you be my Valentine?
             </h1>
 
-            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 w-full">
+            <div className="flex items-center justify-center gap-3 sm:gap-4">
               <YesButton onClick={handleYes} noCount={noCount} />
               <NoButton onEscape={handleNoHover} noCount={noCount} />
             </div>
